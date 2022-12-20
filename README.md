@@ -1,4 +1,7 @@
-# greengrocer
+# Greengrocer
+![Flutter 3.3.8](https://img.shields.io/badge/Flutter-3.3.8-green)
+![Dart 2.15.0](https://img.shields.io/badge/Dart-2.15.0-blueviolet)
+
 
 App flutter using GetX.
 
@@ -14,3 +17,8 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+|                                                                                       |                                                                                                                    |                                                                                                    |
+|:-------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------:|
+|           <img width="1604" alt="Home" src="screenshots/login.png">  Login            |                       <img width="1604" alt="details" src="screenshots/signup.png"> Sign Up                        |                    <img width="1604" alt="Map" src="screenshots/home.png"> Home                    |
