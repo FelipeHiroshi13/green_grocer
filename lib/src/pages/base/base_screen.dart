@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../cart/cart_tab.dart';
 import '../home/home_tab.dart';
+import '../orders/orders_tab.dart';
+import '../profile/profile_tab.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -21,11 +24,11 @@ class _BaseScreenState extends State<BaseScreen> {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: [
+        children: const [
           HomeTab(),
-          Container(color: Colors.white,),
-          Container(color: Colors.grey,),
-          Container(color: Colors.amber,),
+          CartTab(),
+          OrdersTab(),
+          ProfileTab(),
         ],
       ),
 

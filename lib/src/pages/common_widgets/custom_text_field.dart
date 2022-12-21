@@ -7,6 +7,8 @@ class CustomTextField extends StatefulWidget {
   final bool isSecret;
   final bool isInputNumber;
   final List<TextInputFormatter>? inputFormatters;
+  final String? initialValue;
+  final bool isReadOnly;
 
   const CustomTextField(
       {Key? key,
@@ -14,7 +16,10 @@ class CustomTextField extends StatefulWidget {
       required this.label,
       this.isSecret = false,
       this.isInputNumber = false,
-      this.inputFormatters})
+      this.inputFormatters,
+      this.initialValue,
+      this.isReadOnly = false,
+      })
       : super(key: key);
 
   @override
@@ -35,6 +40,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: TextFormField(
+        readOnly: widget.isReadOnly,
+        initialValue: widget.initialValue,
         inputFormatters: widget.inputFormatters,
         obscureText: isObscure,
         keyboardType:
@@ -46,7 +53,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     child: Icon(
                       isObscure ? Icons.visibility : Icons.visibility_off,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        isObscure = !isObscure;
+                      });
+                    },
                   )
                 : null,
             labelText: widget.label,

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
 import '../../config/custom_color.dart';
-import 'components/custom_text_field.dart';
+import '../common_widgets/custom_text_field.dart';
+
 
 
 class SignUpScreen extends StatelessWidget {
