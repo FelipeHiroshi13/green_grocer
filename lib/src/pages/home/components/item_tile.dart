@@ -5,12 +5,34 @@ import '../../../config/custom_color.dart';
 import '../../../models/item_model.dart';
 import '../../product/product_screen.dart';
 
-class ItemTile extends StatelessWidget {
-  ItemTile({Key? key, required this.item}) : super(key: key);
+class ItemTile extends StatefulWidget {
+  const ItemTile({
+    Key? key,
+    required this.item,
+    required this.cartAnimationMethod,
+  }) : super(key: key);
 
+  final void Function(GlobalKey) cartAnimationMethod;
+  final ItemModel item;
+
+  @override
+  State<ItemTile> createState() => _ItemTileState();
+}
+
+class _ItemTileState extends State<ItemTile> {
   UtilsServices utilsServices = UtilsServices();
 
-  final ItemModel item;
+  final GlobalKey imageGk = GlobalKey();
+
+  IconData tileIcon = Icons.add_shopping_cart_outlined;
+
+  Future<void> switchIcon() async {
+    setState(() => tileIcon = Icons.check);
+
+    await Future.delayed(const Duration(milliseconds: 1500));
+
+    setState(() => tileIcon = Icons.add_shopping_cart_outlined);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +43,7 @@ class ItemTile extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ProductScreen(item: item),
+                builder: (context) => ProductScreen(item: widget.item),
               ),
             );
           },
@@ -39,13 +61,16 @@ class ItemTile extends StatelessWidget {
                   //Image
                   Expanded(
                     child: Hero(
-                      tag: item.imgUrl,
-                      child: Image.asset(item.imgUrl),
+                      tag: widget.item.imgUrl,
+                      child: Container(
+                        key: imageGk,
+                        child: Image.asset(widget.item.imgUrl),
+                      ),
                     ),
                   ),
                   //Nome
                   Text(
-                    item.itemName,
+                    widget.item.itemName,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -55,7 +80,7 @@ class ItemTile extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        utilsServices.priceToCurrency(item.price),
+                        utilsServices.priceToCurrency(widget.item.price),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -63,7 +88,7 @@ class ItemTile extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '/${item.unit.toString()}',
+                        '/${widget.item.unit.toString()}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
@@ -82,21 +107,29 @@ class ItemTile extends StatelessWidget {
         Positioned(
           top: 4,
           right: 4,
-          child: GestureDetector(
-            onTap: () {},
-            child: Container(
-              height: 40,
-              width: 35,
-              decoration: BoxDecoration(
-                  color: CustomColors.customSwatchColor,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    topRight: Radius.circular(20),
-                  )),
-              child: const Icon(
-                Icons.add_shopping_cart_outlined,
-                color: Colors.white,
-                size: 20,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(15),
+              topRight: Radius.circular(20),
+            ),
+            child: Material(
+              child: InkWell(
+                onTap: () {
+                  switchIcon();
+                  widget.cartAnimationMethod(imageGk);
+                },
+                child: Ink(
+                  height: 40,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    color: CustomColors.customSwatchColor,
+                  ),
+                  child: Icon(
+                    tileIcon,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
               ),
             ),
           ),
