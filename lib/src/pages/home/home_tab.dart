@@ -35,7 +35,7 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(milliseconds: 500), (){
+    Future.delayed(const Duration(seconds: 5), (){
       setState(() {
         isLoading = false;
       });
