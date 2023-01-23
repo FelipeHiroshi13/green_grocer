@@ -1,11 +1,12 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:greengrocer/src/pages/home/controller/home_controller.dart';
 import 'package:greengrocer/src/services/utils_services.dart';
-import '../../config/app_data.dart' as app_data;
-import '../../config/custom_color.dart';
-import '../common_widgets/app_name_widget.dart';
-import '../common_widgets/custom_shimmer.dart';
+import '../../../config/app_data.dart' as app_data;
+import '../../../config/custom_color.dart';
+import '../../common_widgets/app_name_widget.dart';
+import '../../common_widgets/custom_shimmer.dart';
 import 'components/category_tile.dart';
 import 'components/item_tile.dart';
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
@@ -30,17 +31,17 @@ class _HomeTabState extends State<HomeTab> {
   bool isLoading = true;
   final UtilsServices utilsServices = UtilsServices();
 
-
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 5), (){
+    Get.find<HomeController>().printExample();
+
+    Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         isLoading = false;
       });
     });
-
   }
 
   @override
@@ -70,7 +71,7 @@ class _HomeTabState extends State<HomeTab> {
                   ),
                 ),
                 child: AddToCartIcon(
-                  badgeOptions: BadgeOptions(
+                  badgeOptions: const BadgeOptions(
                     active: false,
                   ),
                   key: cartKey,
@@ -183,7 +184,9 @@ class _HomeTabState extends State<HomeTab> {
                       childAspectRatio: 9 / 11.5,
                       children: List.generate(
                         app_data.items.length,
-                        (index) => CustomShimmer(borderRadius: BorderRadius.circular(20),),
+                        (index) => CustomShimmer(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
                     ),
             ),

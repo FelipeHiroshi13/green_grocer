@@ -88,6 +88,8 @@ UserModel user = UserModel(
   phone: '67 9 9999-9999',
   cpf: '999.999.999-99',
   password: '',
+  id: '',
+  token: '',
 );
 
 List<OrderModel> orders = [

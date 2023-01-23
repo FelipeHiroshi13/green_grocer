@@ -1,11 +1,15 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
+import 'package:greengrocer/src/pages/auth/view/components/forgot_password_dialog.dart';
 import 'package:greengrocer/src/pages_routes/app_pages.dart';
+import 'package:greengrocer/src/services/utils_services.dart';
 
-import '../../config/custom_color.dart';
-import '../common_widgets/app_name_widget.dart';
-import '../common_widgets/custom_text_field.dart';
+import '../../../config/custom_color.dart';
+import '../../../services/validators.dart';
+import '../../common_widgets/app_name_widget.dart';
+import '../../common_widgets/custom_text_field.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
@@ -15,6 +19,7 @@ class SignInScreen extends StatelessWidget {
   //Controlador de campos
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final utilsServices = UtilsServices();
 
   @override
   Widget build(BuildContext context) {
@@ -73,53 +78,69 @@ class SignInScreen extends StatelessWidget {
                         controller: emailController,
                         icon: Icons.email,
                         label: "Email",
-                        validator: (email) {
-                          if (email == null || email.isEmpty) {
-                            return 'Digite seu email!';
-                          }
-                          if (!email.isEmail) return 'Digite um email válido!';
-                          return null;
-                        },
+                        validator: emailValidator,
                       ),
                       CustomTextField(
                         controller: passwordController,
                         icon: Icons.lock,
                         label: "Senha",
                         isSecret: true,
-                        validator: (password) {
-                          if (password == null || password.isEmpty) {
-                            return 'Digite uma senha válida!';
-                          }
-                          if (password.length < 6) {
-                            return 'Digite uma senha com pelo menos 6 dígitos';
-                          }
-                          return null;
-                        },
+                        validator: passwordValidator,
                       ),
                       SizedBox(
                         height: 50,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
+                        child: GetX<AuthController>(
+                          builder: (authController) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
                               ),
-                            ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                Get.offNamed(PagesRoutes.baseRoute);
-                              }
-                            },
-                            child: const Text(
-                              'Entrar',
-                              style: TextStyle(fontSize: 18),
-                            )),
+                              onPressed: authController.isLoading.value
+                                  ? null
+                                  : () {
+                                      FocusScope.of(context).unfocus();
+                                      if (_formKey.currentState!.validate()) {
+                                        String email = emailController.text;
+                                        String password =
+                                            passwordController.text;
+                                        authController.signIn(
+                                            email: email, password: password);
+                                      }
+
+                                      // Get.offNamed(PagesRoutes.baseRoute);
+                                    },
+                              child: authController.isLoading.value
+                                  ? const CircularProgressIndicator()
+                                  : const Text(
+                                      'Entrar',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                            );
+                          },
+                        ),
                       ),
 
                       //Esqueceu a senha
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final result = await showDialog(
+                              context: context,
+                              builder: (_) {
+                                return ForgotPasswordDialog(
+                                  email: emailController.text,
+                                );
+                              },
+                            );
+                            if (result ?? false) {
+                              utilsServices.showToast(
+                                  message:
+                                      'Um link de recupeção foi enviado para seu email');
+                            }
+                          },
                           child: Text(
                             "Esqueceu a senha?",
                             style: TextStyle(

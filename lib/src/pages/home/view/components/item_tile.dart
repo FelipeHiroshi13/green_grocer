@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/services/utils_services.dart';
 
-import '../../../config/custom_color.dart';
-import '../../../models/item_model.dart';
-import '../../product/product_screen.dart';
+import '../../../../config/custom_color.dart';
+import '../../../../models/item_model.dart';
+import '../../../product/product_screen.dart';
 
 class ItemTile extends StatefulWidget {
   const ItemTile({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/custom_color.dart';
+import '../../../../config/custom_color.dart';
 
 class CategoryTile extends StatelessWidget {
   const CategoryTile(
@@ -24,13 +24,15 @@ class CategoryTile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 6),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color:
-                isSelected ? CustomColors.customSwatchColor : Colors.transparent,
+            color: isSelected
+                ? CustomColors.customSwatchColor
+                : Colors.transparent,
           ),
           child: Text(
             category,
             style: TextStyle(
-              color: isSelected ? Colors.white : CustomColors.customContrastColor,
+              color:
+                  isSelected ? Colors.white : CustomColors.customContrastColor,
               fontWeight: FontWeight.bold,
               fontSize: isSelected ? 16 : 14,
             ),
