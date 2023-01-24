@@ -1,6 +1,6 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/services/utils_services.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../models/order_model.dart';
 
@@ -32,10 +32,10 @@ class PaymentDialog extends StatelessWidget {
                 ),
 
                 //QR Code
-                QrImage(
-                  data: "00020126400014br.gov.bcb.pix0111040991231030203Pix52040000530398654040.015802BR5920FELIPE HIROSHI BARON6012CAMPO GRANDE62290525Eqdmgrl8hyObzKq27otjkHSN36304493C",
-                  version: QrVersions.auto,
-                  size: 200.0,
+                Image.memory(
+                  utilsServices.decodeQrCodeImage(order.qrCodeImage),
+                  height: 200,
+                  width: 200,
                 ),
 
                 //Vencimento
@@ -65,7 +65,9 @@ class PaymentDialog extends StatelessWidget {
                           width: 2,
                           color: Colors.green,
                         )),
-                    onPressed: () {},
+                    onPressed: () {
+                      FlutterClipboard.copy(order.copyAndPaste);
+                    },
                     icon: const Icon(
                       Icons.copy,
                       size: 15,
@@ -83,7 +85,7 @@ class PaymentDialog extends StatelessWidget {
             top: 0,
             right: 0,
             child: IconButton(
-              onPressed: (){
+              onPressed: () {
                 Navigator.of(context).pop();
               },
               icon: const Icon(Icons.close),

@@ -77,9 +77,9 @@ List<String> categories = [
 ];
 
 List<CartItemModel> cartItems = [
-  CartItemModel(item: apple, quantity: 1),
-  CartItemModel(item: mango, quantity: 6),
-  CartItemModel(item: guava, quantity: 3),
+  // CartItemModel(id: ''item: apple, quantity: 1),
+  // CartItemModel(item: mango, quantity: 6),
+  // CartItemModel(item: guava, quantity: 3),
 ];
 
 UserModel user = UserModel(
@@ -105,15 +105,16 @@ List<OrderModel> orders = [
     id: 'asd6a54da6s2d1',
     status: 'pending_payment',
     total: 11.0,
+    qrCodeImage: '',
     items: [
-      CartItemModel(
-        item: apple,
-        quantity: 2,
-      ),
-      CartItemModel(
-        item: mango,
-        quantity: 2,
-      ),
+      // CartItemModel(
+      //   item: apple,
+      //   quantity: 2,
+      // ),
+      // CartItemModel(
+      //   item: mango,
+      //   quantity: 2,
+      // ),
     ],
   ),
 
@@ -129,11 +130,12 @@ List<OrderModel> orders = [
     id: 'a65s4d6a2s1d6a5s',
     status: 'delivered',
     total: 11.5,
+    qrCodeImage: '',
     items: [
-      CartItemModel(
-        item: guava,
-        quantity: 1,
-      ),
+      // CartItemModel(
+      //   item: guava,
+      //   quantity: 1,
+      // ),
     ],
   ),
 ];
