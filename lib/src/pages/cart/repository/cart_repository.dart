@@ -20,7 +20,6 @@ class CartRespository {
     );
 
     if (result['result'] != null) {
-      print(result['result']);
       List<CartItemModel> data =
           List<Map<String, dynamic>>.from(result['result'])
               .map(CartItemModel.fromJson)
@@ -63,7 +62,6 @@ class CartRespository {
         'X-Parse-Session-Token': token,
       },
     );
-    print(result);
 
     if (result['result'] != null) {
       final order = OrderModel.fromJson(result['result']);

@@ -141,7 +141,7 @@ class HomeController extends GetxController {
     );
   }
 
-  void LoadMoreProducts() {
+  void loadMoreProducts() {
     currentCategory!.pagination++;
     getAllProducts(canLoad: false);
   }

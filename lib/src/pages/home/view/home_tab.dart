@@ -1,4 +1,3 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/pages/base/controller/navigation_controller.dart';
@@ -52,30 +51,11 @@ class _HomeTabState extends State<HomeTab> {
             child: GetBuilder<CartController>(
               builder: (controller) {
                 return GestureDetector(
-                  onTap: () {
-                    navigationController.navigatePageView(NavigationTabs.cart);
-                  },
-                  child: Badge(
-                    badgeColor: CustomColors.customContrastColor,
-                    badgeContent: Text(
-                      controller.cartItems.length.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                      ),
-                    ),
-                    child: AddToCartIcon(
-                      badgeOptions: const BadgeOptions(
-                        active: false,
-                      ),
-                      key: cartKey,
-                      icon: Icon(
-                        Icons.shopping_cart,
-                        color: CustomColors.customSwatchColor,
-                      ),
-                    ),
-                  ),
-                );
+                    onTap: () {
+                      navigationController
+                          .navigatePageView(NavigationTabs.cart);
+                    },
+                    child: Container());
               },
             ),
           ),
@@ -226,7 +206,7 @@ class _HomeTabState extends State<HomeTab> {
                               if ((index + 1) ==
                                       controller.allProducts.length &&
                                   !controller.isLastPage) {
-                                controller.LoadMoreProducts();
+                                controller.loadMoreProducts();
                               }
 
                               return ItemTile(

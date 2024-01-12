@@ -116,7 +116,6 @@ class SignUpScreen extends StatelessWidget {
                                           if (_formKey.currentState!
                                               .validate()) {
                                             _formKey.currentState!.save();
-                                            print(authController.user);
                                             authController.signUp();
                                           }
                                         },

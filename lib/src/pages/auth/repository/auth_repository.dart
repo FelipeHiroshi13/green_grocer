@@ -3,7 +3,7 @@ import 'package:greengrocer/src/services/http_manager.dart';
 import '../../../constants/endpoints.dart';
 import '../../../models/user_model.dart';
 import '../result/auth_result.dart';
-import 'auth_errors.dart' as authErrors;
+import 'auth_errors.dart' as auth_errors;
 
 class AuthRepository {
   final HttpManager _httpManager = HttpManager();
@@ -13,7 +13,7 @@ class AuthRepository {
       final user = UserModel.fromJson(result['result']);
       return AuthResult.sucess(user);
     } else {
-      return AuthResult.error(authErrors.authErrorsString(result['error']));
+      return AuthResult.error(auth_errors.authErrorsString(result['error']));
     }
   }
 

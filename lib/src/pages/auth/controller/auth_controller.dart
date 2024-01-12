@@ -114,7 +114,6 @@ class AuthController extends GetxController {
         saveTokenAndProceedToBase();
       },
       error: (message) {
-        print(message);
         utilsServices.showToast(message: message, isError: true);
       },
     );
